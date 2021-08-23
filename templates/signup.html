@@ -1,0 +1,51 @@
+{% include "html/homeheader.html" %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+			<meta charset="UTF-8">
+			<meta http-equiv="X-UA-Compatible" content="IE=edge">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<link rel="stylesheet" href="../static/signupstyle.css">
+			<title>Sign Up</title>
+	</head>
+	<body>
+		<div class="signup">
+
+			<div class="signup-logo">
+				<p>Sign Up</p>
+
+			</div>
+
+			<form class ="form" method="post">
+				<div class="form-group">
+						<br>
+						<label id="left">Enter Username</label>
+						<input id="right" type="text" name="username" class="form-control" >
+				</div>
+
+				<br>
+
+				<div class="form-group">
+						<label id="left">Enter Password </label>
+						<input id="right" type="password" name="password" class="form-control">
+				</div>
+
+				<br>
+
+				<div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
+						<label id="left">Confirm Password</label>
+						<input id="right" type="password" name="password" class="form-control">
+				</div>
+
+				<br>
+
+				<div class="form-group">
+						<input type="submit" class="signup-button" value="Sign Up">
+				</div>
+
+				<br>
+
+			</form>
+		</div>
+	</body>
+</html>
