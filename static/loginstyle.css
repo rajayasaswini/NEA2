@@ -11,13 +11,13 @@
 
 .login-button {
 	background-color: #003296;
-  color: black;
-  padding: 5px 5px;
-  font-size: 10px;
+	color: black;
+	padding: 5px 5px;
+	font-size: 10px;
 	border-radius: 10px;
 	border: 1px solid #000;
-  background-color: inherit;
-  font-family: inherit;
+	background-color: inherit;
+	font-family: inherit;
 }
 
 .login-button:hover {
