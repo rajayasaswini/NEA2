@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 4.9.7
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Aug 24, 2021 at 03:44 PM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 8.0.0
+-- Host: localhost:3306
+-- Generation Time: Aug 25, 2021 at 05:36 PM
+-- Server version: 8.0.21
+-- PHP Version: 7.3.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `raja8450_nea`
+-- Database: `raja8450_timeme`
 --
 
 -- --------------------------------------------------------
@@ -28,10 +29,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `class` (
-  `classID` int(11) NOT NULL,
+  `classID` int NOT NULL,
   `classCode` varchar(6) NOT NULL,
-  `classAdmin` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `classAdmin` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -40,11 +41,11 @@ CREATE TABLE `class` (
 --
 
 CREATE TABLE `events` (
-  `eventID` int(11) NOT NULL,
+  `eventID` int NOT NULL,
   `eventType` varchar(100) NOT NULL,
   `eventDistance` varchar(100) DEFAULT NULL,
-  `evenTime` time DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `eventTime` time DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -53,10 +54,10 @@ CREATE TABLE `events` (
 --
 
 CREATE TABLE `logs` (
-  `UserID` int(11) NOT NULL,
-  `LogID` int(11) NOT NULL,
-  `LogContent` varchar(500) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `userID` int NOT NULL,
+  `logID` int NOT NULL,
+  `logContent` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -65,11 +66,11 @@ CREATE TABLE `logs` (
 --
 
 CREATE TABLE `postphotos` (
-  `UserID` int(11) NOT NULL,
-  `PostID` int(11) NOT NULL,
-  `PostPhotoID` int(11) NOT NULL,
-  `PostPhoto` blob NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `userID` int NOT NULL,
+  `postID` int NOT NULL,
+  `postPhotoID` int NOT NULL,
+  `postPhoto` blob NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -78,11 +79,11 @@ CREATE TABLE `postphotos` (
 --
 
 CREATE TABLE `posts` (
-  `UserID` int(11) NOT NULL,
-  `PostID` int(11) NOT NULL,
-  `PostContent` varchar(500) NOT NULL,
-  `isPosted` tinyint(4) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `userID` int NOT NULL,
+  `postID` int NOT NULL,
+  `postContent` varchar(500) NOT NULL,
+  `isPosted` tinyint NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -91,11 +92,11 @@ CREATE TABLE `posts` (
 --
 
 CREATE TABLE `scheduledassignments` (
-  `AssignmentID` int(11) NOT NULL,
-  `EventID` int(11) NOT NULL,
-  `ScheduledDateTime` datetime NOT NULL,
-  `ReturnDateTime` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `assignmentID` int NOT NULL,
+  `eventID` int NOT NULL,
+  `scheduledDateTime` datetime NOT NULL,
+  `returnDateTime` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -104,15 +105,15 @@ CREATE TABLE `scheduledassignments` (
 --
 
 CREATE TABLE `userdst` (
-  `UserID` int(11) NOT NULL,
-  `EventID` int(11) NOT NULL,
-  `UserDSTID` int(11) NOT NULL,
-  `DateTime` datetime NOT NULL,
-  `UserDistance` int(11) DEFAULT NULL,
-  `UserTime` time DEFAULT NULL,
-  `UserSpeed` int(11) DEFAULT NULL,
-  `isAssignment` tinyint(4) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `userID` int NOT NULL,
+  `eventID` int NOT NULL,
+  `userDSTID` int NOT NULL,
+  `datetime` datetime NOT NULL,
+  `userDistance` int DEFAULT NULL,
+  `userTime` time DEFAULT NULL,
+  `userSpeed` int DEFAULT NULL,
+  `isAssignment` tinyint NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -121,16 +122,16 @@ CREATE TABLE `userdst` (
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `username` varchar(100) NOT NULL,
   `password` varchar(4096) NOT NULL,
   `firstname` varchar(50) NOT NULL,
   `lastname` varchar(50) NOT NULL,
   `email` varchar(255) NOT NULL,
   `about` varchar(1000) DEFAULT NULL,
-  `photo` blob DEFAULT NULL,
+  `photo` blob,
   `isAdmin` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `users`
@@ -159,38 +160,38 @@ ALTER TABLE `events`
 -- Indexes for table `logs`
 --
 ALTER TABLE `logs`
-  ADD PRIMARY KEY (`LogID`),
-  ADD KEY `UserID` (`UserID`);
+  ADD PRIMARY KEY (`logID`),
+  ADD KEY `UserID` (`userID`);
 
 --
 -- Indexes for table `postphotos`
 --
 ALTER TABLE `postphotos`
-  ADD PRIMARY KEY (`PostPhotoID`),
-  ADD KEY `UserID` (`UserID`),
-  ADD KEY `PostID` (`PostID`);
+  ADD PRIMARY KEY (`postPhotoID`),
+  ADD KEY `UserID` (`userID`),
+  ADD KEY `PostID` (`postID`);
 
 --
 -- Indexes for table `posts`
 --
 ALTER TABLE `posts`
-  ADD PRIMARY KEY (`PostID`),
-  ADD KEY `UserID` (`UserID`);
+  ADD PRIMARY KEY (`postID`),
+  ADD KEY `UserID` (`userID`);
 
 --
 -- Indexes for table `scheduledassignments`
 --
 ALTER TABLE `scheduledassignments`
-  ADD PRIMARY KEY (`AssignmentID`),
-  ADD KEY `EventID` (`EventID`);
+  ADD PRIMARY KEY (`assignmentID`),
+  ADD KEY `EventID` (`eventID`);
 
 --
 -- Indexes for table `userdst`
 --
 ALTER TABLE `userdst`
-  ADD PRIMARY KEY (`UserDSTID`),
-  ADD KEY `UserID` (`UserID`,`EventID`),
-  ADD KEY `FKEventID2` (`EventID`);
+  ADD PRIMARY KEY (`userDSTID`),
+  ADD KEY `UserID` (`userID`,`eventID`),
+  ADD KEY `FKEventID2` (`eventID`);
 
 --
 -- Indexes for table `users`
@@ -209,30 +210,36 @@ ALTER TABLE `class`
   ADD CONSTRAINT `FKclassAdmin` FOREIGN KEY (`classAdmin`) REFERENCES `users` (`id`);
 
 --
+-- Constraints for table `logs`
+--
+ALTER TABLE `logs`
+  ADD CONSTRAINT `FKUserID5` FOREIGN KEY (`userID`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
 -- Constraints for table `postphotos`
 --
 ALTER TABLE `postphotos`
-  ADD CONSTRAINT `FKPostID` FOREIGN KEY (`PostID`) REFERENCES `posts` (`PostID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FKUserID3` FOREIGN KEY (`UserID`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `FKPostID` FOREIGN KEY (`postID`) REFERENCES `posts` (`postID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FKUserID3` FOREIGN KEY (`userID`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `posts`
 --
 ALTER TABLE `posts`
-  ADD CONSTRAINT `FKUserID` FOREIGN KEY (`UserID`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FKUserID` FOREIGN KEY (`userID`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `scheduledassignments`
 --
 ALTER TABLE `scheduledassignments`
-  ADD CONSTRAINT `FKEventID` FOREIGN KEY (`EventID`) REFERENCES `events` (`eventID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FKEventID` FOREIGN KEY (`eventID`) REFERENCES `events` (`eventID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `userdst`
 --
 ALTER TABLE `userdst`
-  ADD CONSTRAINT `FKEventID2` FOREIGN KEY (`EventID`) REFERENCES `events` (`eventID`),
-  ADD CONSTRAINT `FKUserID2` FOREIGN KEY (`UserID`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FKEventID2` FOREIGN KEY (`eventID`) REFERENCES `events` (`eventID`),
+  ADD CONSTRAINT `FKUserID2` FOREIGN KEY (`userID`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
