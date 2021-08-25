@@ -21,17 +21,6 @@ app.config['SECRET_KEY'] = 'cb1414668bb6f2a30c99cfb0e9c1441b'
 # this variable, db, will be used for all SQLAlchemy commands
 db = SQLAlchemy(app)
 
-class users(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String)
-    password = db.Column(db.String)
-    firstname = db.Column(db.String)
-    lastname = db.Column(db.String)
-    email = db.Column(db.String)
-    about = db.Column(db.String)
-    photo = db.Column(db.Blob)
-    isAdmin = db.Column(db.tinyint)
-
 @app.route('/')
 def index():
     return render_template("index.html")
