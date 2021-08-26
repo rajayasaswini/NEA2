@@ -25,33 +25,33 @@ class Users(Base):
 class Classes(Base):
     __tablename__ = "classes"
     classID = Column(Integer, primary_key=True)
-    classCode = Column(String(6))
+    classCode = Column(String(6),nullable=False)
     classAdminID = Column(Integer, ForeignKey("users.id"))
     user = relationship('Users', backref='class')
 
 class Events(Base):
     __tablename__ = "events"
-    eventID = Column(Integer, primary_key=True)
-    eventType = Column(String(100))
-    eventDistance = Column(Integer)
-    eventTime = Column(Time)
+    eventID = Column(Integer, primary_key=True, nullable=False)
+    eventType = Column(String(100), nullable=False)
+    eventDistance = Column(Integer, nullable=True)
+    eventTime = Column(Time, nullable=True)
     userdst = relationship("UserDST", backref='event')
     schass = relationship("ScheduledAssignments", backref='event')
 
 class Logs(Base):
     __tablename__ = "logs"
     userID = Column(Integer, ForeignKey("users.id"))
-    logID = Column(Integer, primary_key=True)
+    logID = Column(Integer, primary_key=True, nullable=False)
     logContent = Column(String)
-    logDateTime = Column(DateTime)
+    logDateTime = Column(DateTime, nullable=False)
 
 class Photos(Base):
     __tablename__ = "postphotos"
     userID = Column(Integer, ForeignKey("users.id"))
     postID = Column(Integer, ForeignKey("posts.postID"))
-    postPhotoID = Column(Integer, primary_key=True)
+    postPhotoID = Column(Integer, primary_key=True, nullable=False)
     postPhoto = Column(BLOB)
-    postDateTime = Column(DateTime)
+    postDateTime = Column(DateTime, nullable=False)
 
 class Posts(Base):
     __tablename__ = "posts"
@@ -65,8 +65,8 @@ class ScheduledAssignments(Base):
     __tablename__ = "scheduledassignments"
     assignmentID = Column(Integer, primary_key=True)
     eventID = Column(Integer, ForeignKey("event.eventID"))
-    scheduledDateTime = Column(DateTime)
-    returnDateTime = Column(DateTime)
+    scheduledDateTime = Column(DateTime, nullable=False)
+    returnDateTime = Column(DateTime, nullable=False)
     userdst = relationship("UserDST", backref='assignment')
 
 class UserDST(Base):
@@ -74,9 +74,9 @@ class UserDST(Base):
     userID = Column(Integer, ForeignKey("users.id"))
     eventID = Column(Integer, ForeignKey("event.eventID"))
     userDSTID = Column(Integer, primary_key=True)
-    DateTime = Column(DateTime)
-    userDistance = Column(Integer)
-    userTime = Column(Time)
-    userSpeed = Column(Integer)
-    isAssignment = Column(Integer)
+    DateTime = Column(DateTime, nullable=False)
+    userDistance = Column(Integer, nullable=False)
+    userTime = Column(Time, nullable=False)
+    userSpeed = Column(Integer, nullable=False)
+    isAssignment = Column(Integer, nullable=False)
     assignmentID = Column(Integer, ForeignKey("scheduledassignments.assignmentID"), nullable=True)
