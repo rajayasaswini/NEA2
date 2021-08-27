@@ -1,0 +1,7 @@
+/py_virtual/
+/env/
+/__pycache__/
+/.vs/
+/totrash/
+!/static/
+!/templates/
